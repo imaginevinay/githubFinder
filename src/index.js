@@ -1,8 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+
+let github_token;
+if(process.env.NODE_ENV !== 'production') {
+  github_token = process.env.REACT_APP_GITHUB_SECRET_TOKEN
+} else {
+  github_token = process.env.GITHUB_SECRET_TOKEN
+}
+
+axios.interceptors.request.use(req => {
+  req.headers.Authorization = `token ${github_token}`;
+  return req;
+})
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,8 +21,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

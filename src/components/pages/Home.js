@@ -4,8 +4,8 @@ import SearchUser from '../users/SeachUser';
 import GithubContext from '../../context/github/githubContext';
 
 const Home = () => {
-    const githubContext = useContext(GithubContext);
-    const {getAllUsers} = githubContext;
+    const {getAllUsers} = useContext(GithubContext);
+
     useEffect(()=>{
         getAllUsers();
     }, [])
